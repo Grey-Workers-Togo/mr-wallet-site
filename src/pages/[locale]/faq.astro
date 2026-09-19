@@ -1,0 +1,47 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { locales } from '@/i18n/utils';
+import type { Locale } from '@/i18n/ui';
+
+export function getStaticPaths() {
+  return locales.map((locale) => ({ params: { locale } }));
+}
+
+const { locale } = Astro.params as { locale: Locale };
+const allEntries = await getCollection('faq');
+const entries = allEntries
+  .filter((entry) => entry.id.startsWith(`${locale}/`))
+  .sort((a, b) => a.data.order - b.data.order);
+
+const rendered = await Promise.all(entries.map((entry) => render(entry)));
+
+// FAQPage JSON-LD — this is what generative search engines cite (docs/16, Phase 3 AEO/GEO).
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: entries.map((entry) => ({
+    '@type': 'Question',
+    name: entry.data.question,
+  })),
+};
+---
+
+<BaseLayout locale={locale} title="FAQ — Mr Wallet" description="Réponses aux questions fréquentes sur Mr Wallet." path="/faq" jsonLd={jsonLd}>
+  <main class="mx-auto max-w-2xl px-6 py-16">
+    <h1 class="text-3xl font-bold">FAQ</h1>
+    <div class="mt-8 space-y-4">
+      {entries.map((entry, i) => {
+        const { Content } = rendered[i];
+        return (
+          <details class="rounded-lg border p-4">
+            <summary class="cursor-pointer font-semibold">{entry.data.question}</summary>
+            <div class="mt-2 text-slate-600 dark:text-slate-400">
+              <Content />
+            </div>
+          </details>
+        );
+      })}
+    </div>
+  </main>
+</BaseLayout>

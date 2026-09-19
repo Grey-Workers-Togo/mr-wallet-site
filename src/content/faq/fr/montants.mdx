@@ -1,0 +1,8 @@
+---
+question: "Pourquoi Mr Wallet n'affiche-t-il jamais de montant approximatif ?"
+order: 1
+---
+
+Mr Wallet stocke chaque montant en unité mineure entière (centimes, ou l'unité de base pour les
+devises sans sous-unité comme le XOF), jamais en nombre à virgule flottante. Cela élimine les
+erreurs d'arrondi qui s'accumulent avec le temps dans un tableur.

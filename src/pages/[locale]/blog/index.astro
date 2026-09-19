@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { locales } from '@/i18n/utils';
+import type { Locale } from '@/i18n/ui';
+
+export function getStaticPaths() {
+  return locales.map((locale) => ({ params: { locale } }));
+}
+
+const { locale } = Astro.params as { locale: Locale };
+const allPosts = await getCollection('blog');
+const posts = allPosts
+  .filter((post) => post.id.startsWith(`${locale}/`) && !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout locale={locale} title="Blog — Mr Wallet" description="Articles Mr Wallet sur le budget et les finances personnelles." path="/blog">
+  <main class="mx-auto max-w-2xl px-6 py-16">
+    <h1 class="text-3xl font-bold">Blog</h1>
+    <ul class="mt-8 space-y-6">
+      {posts.map((post) => {
+        const slug = post.id.split('/').slice(1).join('/');
+        return (
+          <li>
+            <a href={`/${locale}/blog/${slug}`} class="text-xl font-semibold hover:underline">
+              {post.data.title}
+            </a>
+            <p class="text-slate-600 dark:text-slate-400">{post.data.description}</p>
+          </li>
+        );
+      })}
+    </ul>
+  </main>
+</BaseLayout>

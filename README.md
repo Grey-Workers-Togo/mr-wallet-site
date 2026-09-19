@@ -1,43 +1,35 @@
-# Astro Starter Kit: Minimal
+# Mr Wallet — marketing site
 
-```sh
-npm create astro@latest -- --template minimal
+Public marketing site for [Mr Wallet](https://app.mister-wallet.com), deployed to
+`mister-wallet.com`. Static, Astro 7, zero JS by default. Landing, pricing, blog, FAQ and legal
+pages live here; the application and all auth routes live in a separate repository at
+`app.mister-wallet.com`.
+
+Read [CLAUDE.md](./CLAUDE.md) first — it covers the rules that matter for this repo (i18n parity,
+no animation libraries, no auth/API calls from this site, design token duplication). Full
+background: `docs/16-marketing-site-split.md` and `docs/adr/0015-marketing-site-separation.md` in
+the `mr-wallet` repo.
+
+## Commands
+
+| Command | Action |
+| --- | --- |
+| `npm install` | Install dependencies |
+| `npm run dev` | Dev server at `localhost:4321` |
+| `npm run check:i18n` | fr/en parity check (UI strings + content files) |
+| `npm run check:types` | `astro check` |
+| `npm run build` | `check:i18n && check:types && astro build` → `./dist/` |
+| `npm run preview` | Preview the production build locally |
+
+## Structure
+
 ```
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+src/
+  content.config.ts        # blog/faq/legal collections
+  content/{blog,faq,legal}/{fr,en}/*.mdx
+  i18n/                     # UI dictionary + helpers
+  layouts/BaseLayout.astro  # <head>, canonical/hreflang, JSON-LD
+  components/
+  pages/[locale]/...
+scripts/check-i18n-parity.ts
 ```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).

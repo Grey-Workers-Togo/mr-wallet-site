@@ -1,0 +1,8 @@
+---
+question: "Why does Mr Wallet never show an approximate amount?"
+order: 1
+---
+
+Mr Wallet stores every amount as an integer in minor units (cents, or the base unit for currencies
+without a subunit like XOF), never as a floating-point number. This eliminates the rounding errors
+that accumulate over time in a spreadsheet.

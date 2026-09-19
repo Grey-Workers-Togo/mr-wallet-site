@@ -1,0 +1,22 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+/*
+ * Design tokens copied from apps/web/src/styles/globals.css in the
+ * mr-wallet repo (docs/16-marketing-site-split.md, Phase 2). That file is
+ * the source of truth — port changes here by hand, there is no shared
+ * package between the two repos (ADR-0015).
+ */
+@theme {
+  --font-jakarta: 'Plus Jakarta Sans', sans-serif;
+  --color-brand: #0f766e;
+  --color-brand-dark: #000000;
+}
+
+:root {
+  color-scheme: light dark;
+}
+
+body {
+  font-family: var(--font-jakarta);
+}

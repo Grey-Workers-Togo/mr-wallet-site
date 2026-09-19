@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: i18n parity (fr/en)
+        run: npm run check:i18n
+
+      - name: Type check
+        run: npm run check:types
+
+      - name: Build
+        run: npm run build
+
+      - name: Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          staticDistDir: ./dist
+          urls: |
+            /fr/index.html
+            /en/index.html
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+          # No lighthouserc yet — replace with a config file enforcing the
+          # Performance >= 95 / SEO = 100 / Accessibility >= 95 budget from
+          # docs/16-marketing-site-split.md once the real landing page ships.
+
+      - name: Broken link check
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --no-progress './dist/**/*.html'
+          fail: true

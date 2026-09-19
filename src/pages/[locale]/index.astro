@@ -1,0 +1,86 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { locales, useTranslations } from '@/i18n/utils';
+import type { Locale } from '@/i18n/ui';
+
+export function getStaticPaths() {
+  return locales.map((locale) => ({ params: { locale } }));
+}
+
+const { locale } = Astro.params as { locale: Locale };
+const t = useTranslations(locale);
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://mister-wallet.com';
+
+// Adapted from apps/web/src/app/[locale]/layout.tsx:69-101 in the mr-wallet
+// repo (docs/16-marketing-site-split.md, Phase 3).
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'Mr Wallet',
+    applicationCategory: 'FinanceApplication',
+    operatingSystem: 'Web',
+    url: `${siteUrl}/${locale}`,
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Organization',
+        '@id': `${siteUrl}/#organization`,
+        name: 'Mr Wallet',
+        alternateName: ['Mister Wallet'],
+        url: siteUrl,
+        logo: `${siteUrl}/icon-512x512.png`,
+        sameAs: ['https://github.com/Grey-Workers-Togo/mr-wallet'],
+      },
+      {
+        '@type': 'WebSite',
+        '@id': `${siteUrl}/#website`,
+        name: 'Mr Wallet',
+        alternateName: ['Mister Wallet'],
+        url: siteUrl,
+        publisher: { '@id': `${siteUrl}/#organization` },
+        inLanguage: locales,
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  locale={locale}
+  title="Mr Wallet — Budget, transactions, dettes et objectifs"
+  description="Suivi de budget, transactions, dettes et objectifs financiers, sans montant approximatif ni tableur."
+  path=""
+  jsonLd={jsonLd}
+>
+  <header class="flex items-center justify-between p-6">
+    <span class="font-bold text-lg">{t('hero.title')}</span>
+    <nav class="flex gap-4">
+      <a href={`/${locale}/pricing`}>{t('nav.pricing')}</a>
+      <a href={`/${locale}/blog`}>{t('nav.blog')}</a>
+      <a href={`/${locale}/faq`}>{t('nav.faq')}</a>
+      <a href="https://app.mister-wallet.com/fr/login" class="font-semibold">{t('nav.login')}</a>
+    </nav>
+  </header>
+
+  <main class="mx-auto max-w-3xl px-6 py-24 text-center">
+    <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">{t('hero.title')}</h1>
+    <p class="mt-6 text-lg text-slate-600 dark:text-slate-400">
+      TODO — port the full landing page from apps/web/src/app/[locale]/HomeView.tsx.
+      See docs/16-marketing-site-split.md (Phase 2) in the mr-wallet repo.
+    </p>
+    <a
+      href="https://app.mister-wallet.com/fr/login"
+      class="mt-10 inline-block rounded-lg bg-[--color-brand] px-6 py-3 font-semibold text-white"
+    >
+      {t('hero.cta')}
+    </a>
+  </main>
+
+  <footer class="p-6 text-center text-sm text-slate-500">
+    &copy; {new Date().getFullYear()} Mr Wallet. {t('footer.rights')}
+  </footer>
+</BaseLayout>

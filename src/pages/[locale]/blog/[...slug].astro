@@ -1,0 +1,55 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import type { Locale } from '@/i18n/ui';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => {
+    const [locale, ...rest] = post.id.split('/');
+    return {
+      params: { locale, slug: rest.join('/') },
+      props: { post },
+    };
+  });
+}
+
+const { post } = Astro.props;
+const { locale } = Astro.params as { locale: Locale; slug: string };
+const { Content } = await render(post);
+
+// BlogPosting + BreadcrumbList JSON-LD (docs/16-marketing-site-split.md, Phase 3).
+const siteUrl = 'https://mister-wallet.com';
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.data.title,
+    description: post.data.description,
+    datePublished: post.data.pubDate.toISOString(),
+    dateModified: (post.data.updatedDate ?? post.data.pubDate).toISOString(),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Blog', item: `${siteUrl}/${locale}/blog` },
+      { '@type': 'ListItem', position: 2, name: post.data.title },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  locale={locale}
+  title={post.data.title}
+  description={post.data.description}
+  path={`/blog/${Astro.params.slug}`}
+  ogImage={post.data.ogImage}
+  jsonLd={jsonLd}
+>
+  <article class="mx-auto max-w-2xl px-6 py-16 prose dark:prose-invert">
+    <h1>{post.data.title}</h1>
+    <Content />
+  </article>
+</BaseLayout>
