@@ -1,0 +1,220 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.mister-wallet.com"
+        }
+      ],
+      "destination": "https://mister-wallet.com/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/:locale(fr|en)/login/:path*",
+      "destination": "https://app.mister-wallet.com/:locale/login/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/:locale(fr|en)/register/:path*",
+      "destination": "https://app.mister-wallet.com/:locale/register/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/:locale(fr|en)/forgot-password/:path*",
+      "destination": "https://app.mister-wallet.com/:locale/forgot-password/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/:locale(fr|en)/reset-password/:path*",
+      "destination": "https://app.mister-wallet.com/:locale/reset-password/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/:locale(fr|en)/verify-email/:path*",
+      "destination": "https://app.mister-wallet.com/:locale/verify-email/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/:locale(fr|en)/accounts/:path*",
+      "destination": "https://app.mister-wallet.com/:locale/accounts/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/:locale(fr|en)/transactions/:path*",
+      "destination": "https://app.mister-wallet.com/:locale/transactions/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/:locale(fr|en)/categories/:path*",
+      "destination": "https://app.mister-wallet.com/:locale/categories/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/:locale(fr|en)/tags/:path*",
+      "destination": "https://app.mister-wallet.com/:locale/tags/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/:locale(fr|en)/budgets/:path*",
+      "destination": "https://app.mister-wallet.com/:locale/budgets/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/:locale(fr|en)/debts/:path*",
+      "destination": "https://app.mister-wallet.com/:locale/debts/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/:locale(fr|en)/goals/:path*",
+      "destination": "https://app.mister-wallet.com/:locale/goals/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/:locale(fr|en)/recurrences/:path*",
+      "destination": "https://app.mister-wallet.com/:locale/recurrences/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/:locale(fr|en)/reports/:path*",
+      "destination": "https://app.mister-wallet.com/:locale/reports/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/:locale(fr|en)/forecast/:path*",
+      "destination": "https://app.mister-wallet.com/:locale/forecast/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/:locale(fr|en)/import/:path*",
+      "destination": "https://app.mister-wallet.com/:locale/import/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/:locale(fr|en)/export/:path*",
+      "destination": "https://app.mister-wallet.com/:locale/export/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/:locale(fr|en)/notifications/:path*",
+      "destination": "https://app.mister-wallet.com/:locale/notifications/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/:locale(fr|en)/preferences/:path*",
+      "destination": "https://app.mister-wallet.com/:locale/preferences/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/login/:path*",
+      "destination": "https://app.mister-wallet.com/login/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/register/:path*",
+      "destination": "https://app.mister-wallet.com/register/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/forgot-password/:path*",
+      "destination": "https://app.mister-wallet.com/forgot-password/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/reset-password/:path*",
+      "destination": "https://app.mister-wallet.com/reset-password/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/verify-email/:path*",
+      "destination": "https://app.mister-wallet.com/verify-email/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/accounts/:path*",
+      "destination": "https://app.mister-wallet.com/accounts/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/transactions/:path*",
+      "destination": "https://app.mister-wallet.com/transactions/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/categories/:path*",
+      "destination": "https://app.mister-wallet.com/categories/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/tags/:path*",
+      "destination": "https://app.mister-wallet.com/tags/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/budgets/:path*",
+      "destination": "https://app.mister-wallet.com/budgets/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/debts/:path*",
+      "destination": "https://app.mister-wallet.com/debts/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/goals/:path*",
+      "destination": "https://app.mister-wallet.com/goals/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/recurrences/:path*",
+      "destination": "https://app.mister-wallet.com/recurrences/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/reports/:path*",
+      "destination": "https://app.mister-wallet.com/reports/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/forecast/:path*",
+      "destination": "https://app.mister-wallet.com/forecast/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/import/:path*",
+      "destination": "https://app.mister-wallet.com/import/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/export/:path*",
+      "destination": "https://app.mister-wallet.com/export/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/notifications/:path*",
+      "destination": "https://app.mister-wallet.com/notifications/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/preferences/:path*",
+      "destination": "https://app.mister-wallet.com/preferences/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/manifest.json",
+      "destination": "https://app.mister-wallet.com/manifest.json",
+      "statusCode": 301
+    },
+    {
+      "source": "/sw.js",
+      "destination": "https://app.mister-wallet.com/sw.js",
+      "statusCode": 301
+    },
+    {
+      "source": "/.well-known/assetlinks.json",
+      "destination": "https://app.mister-wallet.com/.well-known/assetlinks.json",
+      "statusCode": 301
+    }
+  ]
+}

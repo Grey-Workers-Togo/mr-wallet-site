@@ -126,5 +126,13 @@ hreflang fr/en/x-default on every page, a real per-page `<meta name="description
 
 Not done yet: this repo has not been pushed to GitHub or deployed anywhere — deliberately deferred
 until the user pushes it themselves (see `docs/16-marketing-site-split.md` Phase 3 verification
-list before either happens). Phase 4 (`apps/web` cleanup in the `mr-wallet` repo) and later phases
-are unstarted.
+list before either happens). Phase 4 (`apps/web` cleanup in the `mr-wallet` repo) is done.
+
+Phase 5 redirects live in `vercel.json` (hosting assumed to be Vercel — if that changes, port the rules
+to the new host, Astro's own `redirects` config only emits meta-refresh HTML on a static build, not a
+real 301). Every app/auth route 301s to `app.mister-wallet.com`, both with and without a locale prefix
+(pre-cutover verification/reset emails carry no locale), plus `/manifest.json`, `/sw.js`,
+`/.well-known/assetlinks.json` and `www` -> apex. `statusCode: 301` is deliberate: Vercel's
+`permanent: true` emits 308. When the app gains a new top-level route, add it to `vercel.json`;
+marketing pages (`/{locale}`, `account-deletion`, `blog`, `faq`, `legal`) must never match a rule.
+Query-string preservation on these redirects has not been checked against a live deployment yet.
