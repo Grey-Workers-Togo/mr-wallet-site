@@ -140,7 +140,9 @@ Phase 5 redirects live in `vercel.json` (hosting assumed to be Vercel — if tha
 to the new host, Astro's own `redirects` config only emits meta-refresh HTML on a static build, not a
 real 301). Every app/auth route 301s to `app.mister-wallet.com`, both with and without a locale prefix
 (pre-cutover verification/reset emails carry no locale), plus `/manifest.json`, `/sw.js`,
-`/.well-known/assetlinks.json` and `www` -> apex. `statusCode: 301` is deliberate: Vercel's
+`/.well-known/assetlinks.json`. The `www` <-> apex direction is deliberately NOT in `vercel.json`:
+a rule there loops forever if the Vercel dashboard redirects the other way (it did once). Set it only in
+the dashboard: apex serves the site, `www` redirects to the apex (canonicals/hreflang/sitemap all use the apex). `statusCode: 301` is deliberate: Vercel's
 `permanent: true` emits 308. When the app gains a new top-level route, add it to `vercel.json`;
 marketing pages (`/{locale}`, `account-deletion`, `blog`, `faq`, `legal`) must never match a rule.
 Query-string preservation on these redirects has not been checked against a live deployment yet.
