@@ -79,6 +79,11 @@ export const ui = {
     'pricing.subtitle': "Tout ce qu'il faut pour gérer ton argent, gratuit pendant qu'on construit.",
 
     'faq.title': 'Questions fréquentes',
+    'faq.description':
+      "Réponses aux questions les plus fréquentes sur Mr Wallet : montants, devises, sécurité, import et export de données.",
+
+    'blog.description':
+      "Nouveautés du produit et guides pratiques pour gérer son budget, ses dépenses et ses objectifs financiers avec Mr Wallet.",
 
     'ctaFinal.title': 'Prêt ? Commence maintenant.',
     'ctaFinal.primary': "S'inscrire gratuitement",
@@ -175,6 +180,11 @@ export const ui = {
     'pricing.subtitle': "Everything you need to manage your money, free while we're building.",
 
     'faq.title': 'Frequently asked questions',
+    'faq.description':
+      'Answers to the most common questions about Mr Wallet: amounts, currencies, security, data import and export.',
+
+    'blog.description':
+      'Product updates and practical guides for managing your budget, expenses, and financial goals with Mr Wallet.',
 
     'ctaFinal.title': 'Ready? Get started now.',
     'ctaFinal.primary': 'Sign up for free',

@@ -24,11 +24,15 @@ const jsonLd = {
   mainEntity: entries.map((entry) => ({
     '@type': 'Question',
     name: entry.data.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: entry.data.answer,
+    },
   })),
 };
 ---
 
-<PageLayout locale={locale} title={t('faq.title')} description={t('seo.description')} path="/faq" jsonLd={jsonLd}>
+<PageLayout locale={locale} title={t('faq.title')} description={t('faq.description')} path="/faq" jsonLd={jsonLd}>
   <main class="mx-auto max-w-2xl px-4 py-16">
     <h1 class="text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">{t('faq.title')}</h1>
     <div class="mt-8 divide-y divide-neutral-200 dark:divide-white/10">

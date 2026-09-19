@@ -24,6 +24,9 @@ const faq = defineCollection({
   loader: glob({ pattern: '**/*.mdx', base: './src/content/faq' }),
   schema: z.object({
     question: z.string(),
+    // Self-contained 40-60 word answer, used as FAQPage acceptedAnswer.text
+    // for AEO/GEO (generative engines quote this directly) — see docs/16.
+    answer: z.string(),
     order: z.number().default(0),
   }),
 });
@@ -32,6 +35,7 @@ const legal = defineCollection({
   loader: glob({ pattern: '**/*.mdx', base: './src/content/legal' }),
   schema: z.object({
     title: z.string(),
+    description: z.string(),
     updatedDate: z.coerce.date(),
   }),
 });

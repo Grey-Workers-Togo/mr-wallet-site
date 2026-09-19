@@ -103,17 +103,28 @@ components instead (`src/components/`), which keeps the zero-JS goal intact. Str
 (feature list, pricing plans, testimonials, FAQ items) lives in `src/i18n/content.ts`, hand-kept in
 sync between `fr`/`en` — the parity script only diffs `ui.ts`'s flat keys, not this file's arrays.
 
-`legal/` has real content: `privacy` and `terms` are first-draft copy (each MDX file has an
-HTML-comment note — **needs an actual legal review pass before production launch**, this was
-written by an agent, not a lawyer). `account-deletion` is fully migrated from
-`apps/web/src/app/[locale]/account-deletion/page.tsx` and kept at its original indexed URL
-(`/[locale]/account-deletion`, not under `/legal/`).
+`legal/` has real content: `privacy` merges the Phase 2 draft with the real legal-entity info from
+the 2022 privacypolicies.com source (Grey Workers Togo, Zanguera, Lomé, Togo — entity, minors,
+data-transfer, legal-disclosure sections). `terms` has no equivalent historical source and is still
+first-draft copy. Both MDX files carry an HTML-comment note — **needs an actual legal review pass
+before production launch**, product-facing claims (Argon2id, no bank connector, no ads) are
+verified against the code but the legal framing is not lawyer-reviewed. `account-deletion` is fully
+migrated from `apps/web/src/app/[locale]/account-deletion/page.tsx` and kept at its original indexed
+URL (`/[locale]/account-deletion`, not under `/legal/`).
 
 Real assets are in place: `logo-symbol.svg`, `logo-full.svg`, icon/favicon set, and the four
 `screenshots/phone*.png` from `apps/web/public/`. One sample blog post and one sample FAQ entry
 still exist per locale — more content is a content task, not a code task, from here on.
 
-Not done yet: Lighthouse CI budget config referenced in `.github/workflows/ci.yml` (no
-`lighthouserc` file exists), and this repo has not been pushed to GitHub or deployed anywhere —
-both are deliberately deferred (see `docs/16-marketing-site-split.md` Phase 3 verification list
-before either happens).
+Phase 3 (SEO/AEO/GEO) is done: JSON-LD (`Organization`+`WebSite`, `SoftwareApplication`,
+`FAQPage` with `acceptedAnswer.text`, `BlogPosting`+`BreadcrumbList`), absolute canonical +
+hreflang fr/en/x-default on every page, a real per-page `<meta name="description">` (`faq` and
+`legal` collections now carry their own `description`/`answer` fields — no more reused
+`seo.description` placeholder), `public/llms.txt` adapted for the marketing domain, and
+`lighthouserc.json` (Performance ≥95 / SEO=100 / Accessibility ≥95) wired into
+`.github/workflows/ci.yml`'s Lighthouse CI step.
+
+Not done yet: this repo has not been pushed to GitHub or deployed anywhere — deliberately deferred
+until the user pushes it themselves (see `docs/16-marketing-site-split.md` Phase 3 verification
+list before either happens). Phase 4 (`apps/web` cleanup in the `mr-wallet` repo) and later phases
+are unstarted.
