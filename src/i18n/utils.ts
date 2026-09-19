@@ -17,4 +17,4 @@ export function getLocalizedPath(locale: Locale, path: string): string {
   return `/${locale}/${clean}`.replace(/\/$/, '') || `/${locale}`;
 }
 
-export const locales: Locale[] = ['fr', 'en'];
+export const locales: Locale[] = ['en', 'fr'];

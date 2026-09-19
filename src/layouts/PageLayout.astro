@@ -13,13 +13,28 @@ interface Props {
   description: string;
   path: string;
   ogImage?: string;
+  ogType?: 'website' | 'article';
+  noindex?: boolean;
+  publishedTime?: Date;
+  modifiedTime?: Date;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-const { locale, title, description, path, ogImage, jsonLd } = Astro.props;
+const { locale, title, description, path, ogImage, ogType, noindex, publishedTime, modifiedTime, jsonLd } = Astro.props;
 ---
 
-<BaseLayout locale={locale} title={title} description={description} path={path} ogImage={ogImage} jsonLd={jsonLd}>
+<BaseLayout
+  locale={locale}
+  title={title}
+  description={description}
+  path={path}
+  ogImage={ogImage}
+  ogType={ogType}
+  noindex={noindex}
+  publishedTime={publishedTime}
+  modifiedTime={modifiedTime}
+  jsonLd={jsonLd}
+>
   <SiteHeader locale={locale} path={path} />
   <slot />
   <Footer locale={locale} />

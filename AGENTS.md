@@ -31,9 +31,11 @@ non-trivial change here — this file only summarizes the parts that matter day 
 - **No Framer Motion, no animation library.** Use CSS (`@starting-style`,
   `animation-timeline: view()`, transitions). A JS animation library on the marketing site is the
   one thing likely to get a PR rejected outright.
-- **Two locales, `fr` and `en`, `fr` is default, `prefixDefaultLocale: true`.** Never change this
+- **Two locales, `fr` and `en`, `en` is default, `prefixDefaultLocale: true`.** Never change this
   to a locale-less default — `/fr` and `/en` are already indexed by Google; changing the URL
-  scheme throws that away. See `astro.config.mjs`.
+  scheme throws that away. `defaultLocale` (in `astro.config.mjs` and `src/i18n/ui.ts`) only drives
+  `/` -> `/en`, `x-default` hreflang and the sitemap; keep the two in sync. Blog slugs are English in
+  both locales (same filename, see parity rule below).
 - **fr/en parity is enforced by the build.** `npm run check:i18n`
   (`scripts/check-i18n-parity.ts`) fails if a UI string key or an MDX file exists for one locale
   and not the other. Every new blog post, FAQ entry, or UI string needs both.
@@ -52,8 +54,12 @@ non-trivial change here — this file only summarizes the parts that matter day 
 
 ## SEO / AEO / GEO (why this repo exists)
 
-- Every page: absolute `<link rel="canonical">`, unique hand-written `<meta name="description">`,
-  hreflang fr/en/x-default. See `BaseLayout.astro`.
+- Every page: absolute `<link rel="canonical">` (no trailing slash — `trailingSlash: 'never'` in
+  `astro.config.mjs` and `"trailingSlash": false` in `vercel.json` must agree with the sitemap),
+  unique hand-written `<meta name="description">`, hreflang en/fr/x-default, OG/Twitter tags with
+  a 1200x630 card (`public/og-default.png`, regenerate with `node scripts/generate-og-image.mjs`),
+  `og:type=article` on posts. See `BaseLayout.astro`. `/` is filtered out of the sitemap (redirect
+  stub) and `src/pages/404.astro` is `noindex`.
 - JSON-LD: `Organization` + `WebSite` on every page, `SoftwareApplication` on home/pricing,
   `FAQPage` on `/faq`, `BlogPosting` + `BreadcrumbList` on every article.
 - Every blog post and FAQ answer opens with a **self-contained 40–60 word answer paragraph** —

@@ -1,0 +1,23 @@
+---
+import PageLayout from '@/layouts/PageLayout.astro';
+import { defaultLocale } from '@/i18n/ui';
+---
+
+<PageLayout
+  locale={defaultLocale}
+  title="Page not found"
+  description="This page does not exist. Go back to the Mr Wallet home page."
+  path=""
+  noindex
+>
+  <main class="mx-auto flex max-w-xl flex-col items-center gap-4 px-4 py-24 text-center">
+    <h1 class="text-3xl font-bold">Page not found</h1>
+    <p class="text-neutral-600 dark:text-neutral-400">
+      This page does not exist. / Cette page n'existe pas.
+    </p>
+    <div class="flex gap-4">
+      <a href="/en" class="text-teal-700 underline underline-offset-4 dark:text-teal-400">Home</a>
+      <a href="/fr" class="text-teal-700 underline underline-offset-4 dark:text-teal-400">Accueil</a>
+    </div>
+  </main>
+</PageLayout>

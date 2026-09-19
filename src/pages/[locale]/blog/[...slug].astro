@@ -20,14 +20,29 @@ const { Content } = await render(post);
 
 // BlogPosting + BreadcrumbList JSON-LD (docs/16-marketing-site-split.md, Phase 3).
 const siteUrl = 'https://mister-wallet.com';
+const postUrl = `${siteUrl}/${locale}/blog/${Astro.params.slug}`;
+const modified = post.data.updatedDate ?? post.data.pubDate;
+const publisher = {
+  '@type': 'Organization',
+  name: 'Mr Wallet',
+  url: siteUrl,
+  logo: { '@type': 'ImageObject', url: `${siteUrl}/icon-512x512.png` },
+};
 const jsonLd = [
   {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
     headline: post.data.title,
     description: post.data.description,
+    url: postUrl,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': postUrl },
+    inLanguage: locale,
+    image: `${siteUrl}${post.data.ogImage ?? '/og-default.png'}`,
+    keywords: post.data.tags.join(', '),
+    author: publisher,
+    publisher,
     datePublished: post.data.pubDate.toISOString(),
-    dateModified: (post.data.updatedDate ?? post.data.pubDate).toISOString(),
+    dateModified: modified.toISOString(),
   },
   {
     '@context': 'https://schema.org',
@@ -46,6 +61,9 @@ const jsonLd = [
   description={post.data.description}
   path={`/blog/${Astro.params.slug}`}
   ogImage={post.data.ogImage}
+  ogType="article"
+  publishedTime={post.data.pubDate}
+  modifiedTime={modified}
   jsonLd={jsonLd}
 >
   <article class="prose prose-neutral mx-auto max-w-2xl px-4 py-16 dark:prose-invert">

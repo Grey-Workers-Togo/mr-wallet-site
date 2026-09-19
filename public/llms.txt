@@ -4,27 +4,37 @@
 > recurring transactions, and multi-currency support (including currencies with no minor unit, like
 > XOF). No bank connector — data comes in by manual entry or CSV/Excel import. Every amount is
 > stored as an integer, never a floating-point number, so balances never drift from rounding. Free
-> while the product is in active development. Available in French and English.
+> while the product is in active development. Available in English (default) and French.
 
 Mr Wallet is published by Grey Workers Togo (Zanguera, Lomé, Togo). The marketing site
 (mister-wallet.com) is informational only; the application runs at app.mister-wallet.com.
 
-## Pages
+## Pages (English)
+
+- [Home (en)](https://mister-wallet.com/en): Product overview, features, pricing, FAQ
+- [FAQ (en)](https://mister-wallet.com/en/faq): Frequently asked questions
+- [Blog (en)](https://mister-wallet.com/en/blog): Product updates and budgeting guides
+- [Privacy policy (en)](https://mister-wallet.com/en/legal/privacy)
+- [Terms of service (en)](https://mister-wallet.com/en/legal/terms)
+- [Delete my account (en)](https://mister-wallet.com/en/account-deletion)
+
+## Pages (French)
 
 - [Home (fr)](https://mister-wallet.com/fr): Product overview, features, pricing, FAQ
-- [Home (en)](https://mister-wallet.com/en): Same, in English
 - [FAQ (fr)](https://mister-wallet.com/fr/faq): Frequently asked questions
-- [FAQ (en)](https://mister-wallet.com/en/faq)
 - [Blog (fr)](https://mister-wallet.com/fr/blog): Product updates and budgeting guides
-- [Blog (en)](https://mister-wallet.com/en/blog)
 - [Privacy policy (fr)](https://mister-wallet.com/fr/legal/privacy)
-- [Privacy policy (en)](https://mister-wallet.com/en/legal/privacy)
 - [Terms of service (fr)](https://mister-wallet.com/fr/legal/terms)
-- [Terms of service (en)](https://mister-wallet.com/en/legal/terms)
 - [Delete my account (fr)](https://mister-wallet.com/fr/account-deletion)
-- [Delete my account (en)](https://mister-wallet.com/en/account-deletion)
+
+## Blog posts (English; the same slugs exist under /fr/blog/)
+
+- [Why a budget app should never use a floating-point number](https://mister-wallet.com/en/blog/why-not-floats-for-money)
+- [Category budgets that alert you before you overspend](https://mister-wallet.com/en/blog/budgets-by-category)
+- [Preparing your file before importing it into Mr Wallet](https://mister-wallet.com/en/blog/prepare-your-import-file)
+- [Welcome to the Mr Wallet blog](https://mister-wallet.com/en/blog/welcome)
 
 ## Application
 
-- [Sign up](https://app.mister-wallet.com/fr/register)
-- [Log in](https://app.mister-wallet.com/fr/login)
+- [Sign up](https://app.mister-wallet.com/en/register)
+- [Log in](https://app.mister-wallet.com/en/login)

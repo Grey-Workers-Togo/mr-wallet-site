@@ -12,7 +12,7 @@ export const languages = {
 
 export type Locale = keyof typeof languages;
 
-export const defaultLocale: Locale = 'fr';
+export const defaultLocale: Locale = 'en';
 
 export const ui = {
   fr: {
