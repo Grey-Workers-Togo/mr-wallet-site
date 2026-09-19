@@ -1,0 +1,38 @@
+---
+title: "Pourquoi votre appli de budget ne devrait jamais utiliser de nombre à virgule flottante"
+description: "Un nombre à virgule flottante ne représente pas exactement 0,10 en binaire : additionné des milliers de fois, l'erreur s'accumule. Mr Wallet stocke chaque montant en entier, jamais en float."
+pubDate: 2026-09-20
+tags: ["technique", "montants"]
+draft: false
+---
+
+Un nombre à virgule flottante (`float`, `double`) ne représente pas exactement 0,10 en binaire :
+additionné des milliers de fois sur des années de transactions, cette imprécision s'accumule et
+finit par produire un solde affiché différent du solde réel. Mr Wallet évite ce problème en
+stockant chaque montant comme un entier en unité mineure, jamais comme un nombre à virgule.
+
+## Le problème concrètement
+
+Essayez dans n'importe quel langage : `0.1 + 0.2` ne donne pas exactement `0.3`, mais
+`0.30000000000000004`. Sur une seule opération, l'écart est invisible. Sur un historique de
+transactions qui s'étale sur des années, avec des additions, des soustractions et des conversions
+de devise en cascade, ces micro-erreurs finissent par produire un écart réel entre le solde affiché
+et la somme exacte des mouvements.
+
+## La solution : l'entier en unité mineure
+
+Un euro ne vaut pas `1.00`, il vaut `100` centimes. Un franc CFA ne vaut pas `1.0`, il vaut `1`
+unité — le XOF n'a pas de sous-unité, donc son montant mineur est identique à son montant affiché.
+Chaque montant est stocké avec sa devise (norme ISO 4217) et sa précision (`minorUnits`), jamais
+avec un facteur `×100` codé en dur : ce facteur dépend de la devise, pas d'une constante globale.
+
+Les arrondis n'interviennent qu'au moment de l'affichage — jamais au moment du stockage. C'est ce
+qui garantit que la somme de vos transactions correspond toujours, au centime près, au solde que
+vous voyez.
+
+## Ce que ça change pour vous
+
+Rien à faire de votre côté : vous saisissez vos montants normalement, avec une virgule ou un point.
+La garantie est interne. Mais elle explique pourquoi un tableur, qui manipule des nombres à
+virgule flottante par défaut, dérive lentement sur un historique long — et pourquoi ce n'est pas le
+cas ici.

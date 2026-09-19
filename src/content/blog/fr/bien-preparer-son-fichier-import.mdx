@@ -1,0 +1,36 @@
+---
+title: "Bien préparer son fichier avant de l'importer dans Mr Wallet"
+description: "Mr Wallet importe des fichiers CSV, TSV, XLSX et XLS jusqu'à 10 Mo, détecte encodage et séparateur automatiquement, et écarte les doublons avant tout enregistrement définitif."
+pubDate: 2026-09-27
+tags: ["guide", "import"]
+draft: false
+---
+
+Mr Wallet importe des fichiers CSV, TSV, XLSX et XLS jusqu'à 10 Mo, détecte l'encodage et le
+séparateur automatiquement, et écarte les doublons avant tout enregistrement définitif. Ce guide
+explique comment préparer votre export bancaire pour que le premier import se passe sans accroc.
+
+## Exportez depuis votre espace bancaire
+
+La plupart des banques proposent un export CSV ou Excel de vos relevés depuis leur espace en
+ligne. Téléchargez la période qui vous intéresse — l'import accepte jusqu'à 20 000 lignes par
+fichier, largement au-delà d'un usage courant.
+
+## Un seul point d'attention : le format de date
+
+Quand le jour et le mois sont tous les deux inférieurs ou égaux à 12 sur toutes les lignes d'un
+fichier, il est impossible de deviner s'il s'agit du format `jj/mm/aaaa` ou `mm/jj/aaaa` — Mr
+Wallet vous demandera de préciser plutôt que de risquer d'inverser silencieusement jour et mois sur
+tout votre historique.
+
+## L'aperçu avant l'enregistrement
+
+Rien n'est écrit en base tant que vous n'avez pas validé l'aperçu : celui-ci sépare les lignes à
+importer, les doublons détectés (par empreinte, comparée à vos transactions existantes et au reste
+du fichier) et les lignes en erreur. Vous gardez la main jusqu'au bout.
+
+## Réutiliser le mapping
+
+La première fois, vous associez les colonnes de votre fichier aux champs d'une transaction (date,
+montant, libellé, catégorie). Ce mapping peut être sauvegardé comme modèle : le prochain import
+depuis la même banque reconnaît automatiquement les colonnes.

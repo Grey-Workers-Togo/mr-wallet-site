@@ -1,0 +1,9 @@
+---
+question: "How is my data protected?"
+answer: "Your password is hashed with Argon2id, never stored or logged in plain text. Your session uses an HttpOnly cookie scoped to the single refresh endpoint, so it's unreachable by a malicious script. Every create, update or delete is additionally recorded in an immutable audit log for traceability."
+order: 4
+---
+
+No authentication token is ever stored in the browser's local storage, where it would be exposed
+to an XSS flaw. Your financial data is strictly scoped to your account: no other user, including
+support staff, can view your transactions through a workaround.

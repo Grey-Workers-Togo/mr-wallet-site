@@ -1,0 +1,34 @@
+---
+title: "Preparing your file before importing it into Mr Wallet"
+description: "Mr Wallet imports CSV, TSV, XLSX and XLS files up to 10 MB, auto-detects encoding and delimiter, and filters out duplicates before anything is permanently saved."
+pubDate: 2026-09-27
+tags: ["guide", "import"]
+draft: false
+---
+
+Mr Wallet imports CSV, TSV, XLSX and XLS files up to 10 MB, auto-detects encoding and delimiter,
+and filters out duplicates before anything is permanently saved. This guide covers how to prepare
+your bank export so your first import goes smoothly.
+
+## Export from your bank's portal
+
+Most banks offer a CSV or Excel export of your statements from their online portal. Download the
+period you need — import accepts up to 20,000 rows per file, well beyond typical everyday use.
+
+## One thing to watch: the date format
+
+When both the day and the month are 12 or lower on every row of a file, it's impossible to guess
+whether the format is `dd/mm/yyyy` or `mm/dd/yyyy` — Mr Wallet will ask you to confirm rather than
+risk silently swapping day and month across your entire history.
+
+## The preview before saving
+
+Nothing is written to the database until you confirm the preview: it separates rows to import,
+detected duplicates (by fingerprint, checked against your existing transactions and the rest of
+the file), and rows with errors. You stay in control until the very end.
+
+## Reusing the mapping
+
+The first time, you map your file's columns to a transaction's fields (date, amount, label,
+category). That mapping can be saved as a template: your next import from the same bank
+automatically recognizes the columns.

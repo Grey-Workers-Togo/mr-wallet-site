@@ -1,0 +1,10 @@
+---
+question: "Comment mes données sont-elles protégées ?"
+answer: "Votre mot de passe est haché avec Argon2id, jamais stocké ni loggué en clair. La session utilise un cookie HttpOnly scopé au seul endpoint de rafraîchissement, donc inaccessible à un script malveillant. Chaque création, modification ou suppression est en plus journalisée dans un audit log immuable, à des fins de traçabilité."
+order: 4
+---
+
+Aucun token d'authentification n'est jamais stocké dans le stockage local du navigateur, où il
+serait exposé à une faille XSS. Vos données financières sont strictement scopées à votre compte :
+aucun autre utilisateur, y compris le support, ne peut consulter vos transactions par un accès
+détourné.

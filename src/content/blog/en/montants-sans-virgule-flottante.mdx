@@ -1,0 +1,35 @@
+---
+title: "Why a budget app should never use a floating-point number"
+description: "A floating-point number doesn't represent 0.10 exactly in binary: summed thousands of times, the error accumulates. Mr Wallet stores every amount as an integer, never as a float."
+pubDate: 2026-09-20
+tags: ["technical", "amounts"]
+draft: false
+---
+
+A floating-point number (`float`, `double`) doesn't represent 0.10 exactly in binary: summed
+thousands of times across years of transactions, this imprecision accumulates and eventually
+produces a displayed balance that differs from the real one. Mr Wallet avoids this by storing
+every amount as an integer in minor units, never as a floating-point number.
+
+## The problem, concretely
+
+Try it in any language: `0.1 + 0.2` doesn't give exactly `0.3`, it gives `0.30000000000000004`. On
+a single operation, the gap is invisible. Across a transaction history spanning years, with
+additions, subtractions and cascading currency conversions, these micro-errors eventually produce
+a real gap between the displayed balance and the exact sum of movements.
+
+## The fix: integers in minor units
+
+A euro isn't `1.00`, it's `100` cents. A CFA franc isn't `1.0`, it's `1` unit — XOF has no
+subunit, so its minor amount is identical to its displayed amount. Every amount is stored with its
+currency (ISO 4217) and its precision (`minorUnits`), never with a hardcoded `×100` factor — that
+factor depends on the currency, not a global constant.
+
+Rounding only happens at display time, never at storage time. That's what guarantees the sum of
+your transactions always matches, to the cent, the balance you see.
+
+## What this means for you
+
+Nothing changes on your end: you enter amounts normally, with a comma or a period. The guarantee
+is internal. But it's why a spreadsheet, which handles floating-point numbers by default, slowly
+drifts over a long history — and why this doesn't happen here.
