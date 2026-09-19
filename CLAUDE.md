@@ -92,6 +92,8 @@ src/
   pages/
     index.astro              # redirects "/" -> "/{defaultLocale}"
     [locale]/index.astro      # home/landing
+    [locale]/pricing.astro    # plans from content.ts + the gratuit-pro FAQ entry (single source)
+    [locale]/about.astro      # publisher + principles; Organization schema from src/lib/schema.ts
     [locale]/blog/{index,[...slug]}.astro
     [locale]/faq.astro
     [locale]/legal/[...slug].astro

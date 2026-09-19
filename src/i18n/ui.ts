@@ -26,6 +26,7 @@ export const ui = {
     'nav.pricing': 'Tarifs',
     'nav.blog': 'Blog',
     'nav.faq': 'FAQ',
+    'nav.about': "À propos",
 
     'seo.title': 'Mr Wallet — Gestion de budget et suivi des dépenses',
     'seo.description':
@@ -78,6 +79,61 @@ export const ui = {
     'pricing.title': 'Tarifs simples',
     'pricing.subtitle': "Tout ce qu'il faut pour gérer ton argent, gratuit pendant qu'on construit.",
 
+    "pricingPage.title":
+      "Tarifs de Mr Wallet : application de budget gratuite",
+    "pricingPage.description":
+      "Mr Wallet est gratuit : comptes et transactions illimités, budgets, objectifs, dettes, import et export. Un plan Pro payant est prévu mais pas encore disponible.",
+    "pricingPage.h1":
+      "Combien coûte Mr Wallet ?",
+    "pricingPage.answer":
+      "Mr Wallet est gratuit. Le plan Gratuit n'a ni limite de durée ni plafond de comptes ou de transactions, et inclut budgets, objectifs, dettes, transactions récurrentes, import et export CSV/Excel et multi-devises (FCFA, EUR, USD). Un plan Pro payant est prévu mais pas encore disponible : il n'y a rien à payer aujourd'hui.",
+    "pricingPage.proTitle":
+      "Et le plan Pro ?",
+    "pricingPage.proBody":
+      "Le plan Pro n'est pas encore disponible et son contenu n'est pas définitif : les fonctionnalités listées sont celles envisagées à ce stade. Pour être prévenu de son lancement, écrivez à",
+    "pricingPage.faqTitle":
+      "Une question sur les tarifs ?",
+    "pricingPage.faqMore":
+      "Plus de questions",
+    "pricingPage.ctaTitle":
+      "Prêt à essayer ?",
+    "about.title":
+      "À propos de Mr Wallet : éditeur et principes",
+    "about.description":
+      "Mr Wallet est une application de budget et de suivi des dépenses éditée par Grey Workers Togo à Lomé, Togo. Ce qu'elle fait, pour qui, et les principes qui la guident.",
+    "about.h1":
+      "Qu'est-ce que Mr Wallet ?",
+    "about.answer":
+      "Mr Wallet est une application de budget et de suivi des dépenses éditée par Grey Workers Togo, basée à Zanguera, Lomé, Togo. Elle réunit comptes, transactions, budgets, dettes, objectifs d'épargne et paiements récurrents dans une seule application, en plusieurs devises dont le FCFA. Elle ne se connecte pas à votre banque : vous saisissez ou importez vos propres données.",
+    "about.whoTitle":
+      "Pour qui ?",
+    "about.principlesTitle":
+      "Nos principes",
+    "about.p1.title":
+      "Des montants exacts",
+    "about.p1.body":
+      "Chaque montant est stocké sous forme d'entier en plus petite unité, jamais en nombre à virgule flottante : les soldes ne dérivent pas à cause des arrondis.",
+    "about.p2.title":
+      "Confidentiel par conception",
+    "about.p2.body":
+      "Les mots de passe sont hachés avec Argon2id, aucun jeton d'authentification n'est conservé dans le stockage local du navigateur, et vos données sont strictement cloisonnées à votre compte.",
+    "about.p3.title":
+      "Pas de connecteur bancaire, pas de publicité",
+    "about.p3.body":
+      "Les données arrivent par saisie manuelle ou import CSV/Excel, et l'application n'affiche aucune publicité.",
+    "about.p4.title":
+      "À exporter ou supprimer librement",
+    "about.p4.body":
+      "Exportez vos données en CSV/Excel à tout moment, et supprimez vous-même votre compte et toutes ses données, immédiatement, depuis les paramètres.",
+    "about.p5.title":
+      "Open source",
+    "about.p5.body":
+      "Le code source est publié sur GitHub sous licence GNU AGPL-3.0.",
+    "about.publisherTitle":
+      "Qui édite Mr Wallet ?",
+    "about.publisherBody":
+      "Mr Wallet est édité par Grey Workers Togo, Zanguera, Lomé, Togo. Pour toute question, retour ou demande légale, écrivez à",
+
     'faq.title': 'Questions fréquentes',
     'faq.description':
       "Réponses aux questions les plus fréquentes sur Mr Wallet : montants, devises, sécurité, import et export de données.",
@@ -127,6 +183,7 @@ export const ui = {
     'nav.pricing': 'Pricing',
     'nav.blog': 'Blog',
     'nav.faq': 'FAQ',
+    'nav.about': "About",
 
     'seo.title': 'Mr Wallet — Personal Budget & Expense Tracker',
     'seo.description':
@@ -178,6 +235,61 @@ export const ui = {
 
     'pricing.title': 'Simple pricing',
     'pricing.subtitle': "Everything you need to manage your money, free while we're building.",
+
+    "pricingPage.title":
+      "Mr Wallet pricing: free personal budget app",
+    "pricingPage.description":
+      "Mr Wallet is free: unlimited accounts and transactions, budgets, goals, debts, import and export. A paid Pro plan is planned but not available yet.",
+    "pricingPage.h1":
+      "How much does Mr Wallet cost?",
+    "pricingPage.answer":
+      "Mr Wallet is free. The Free plan has no time limit and no cap on accounts or transactions, and includes budgets, goals, debts, recurring transactions, CSV/Excel import and export, and multi-currency support (FCFA, EUR, USD). A paid Pro plan is planned but not available yet: there is nothing to pay today.",
+    "pricingPage.proTitle":
+      "What about the Pro plan?",
+    "pricingPage.proBody":
+      "The Pro plan is not available yet and its content is not final: the features listed are the ones considered so far. To be told when it launches, write to",
+    "pricingPage.faqTitle":
+      "A question about pricing?",
+    "pricingPage.faqMore":
+      "More questions",
+    "pricingPage.ctaTitle":
+      "Ready to try it?",
+    "about.title":
+      "About Mr Wallet: publisher and principles",
+    "about.description":
+      "Mr Wallet is a personal budget and expense tracker published by Grey Workers Togo in Lomé, Togo. What it does, who it is for and the principles behind it.",
+    "about.h1":
+      "What is Mr Wallet?",
+    "about.answer":
+      "Mr Wallet is a personal budget and expense tracker published by Grey Workers Togo, based in Zanguera, Lomé, Togo. It brings accounts, transactions, budgets, debts, savings goals and recurring payments into one app, in several currencies including FCFA. It does not connect to your bank: you enter or import your own data.",
+    "about.whoTitle":
+      "Who is it for?",
+    "about.principlesTitle":
+      "Principles",
+    "about.p1.title":
+      "Exact amounts",
+    "about.p1.body":
+      "Every amount is stored as an integer in minor units, never as a floating-point number, so balances never drift from rounding.",
+    "about.p2.title":
+      "Private by design",
+    "about.p2.body":
+      "Passwords are hashed with Argon2id, no authentication token is kept in the browser's local storage, and your data is scoped strictly to your account.",
+    "about.p3.title":
+      "No bank connector, no ads",
+    "about.p3.body":
+      "Data comes in by manual entry or CSV/Excel import, and the app shows no ads.",
+    "about.p4.title":
+      "Yours to export or delete",
+    "about.p4.body":
+      "Export your data as CSV/Excel at any time, and delete your account and all its data yourself, immediately, from the settings.",
+    "about.p5.title":
+      "Open source",
+    "about.p5.body":
+      "The source code is published on GitHub under the GNU AGPL-3.0 license.",
+    "about.publisherTitle":
+      "Who publishes it?",
+    "about.publisherBody":
+      "Mr Wallet is published by Grey Workers Togo, Zanguera, Lomé, Togo. For questions, feedback or legal requests, write to",
 
     'faq.title': 'Frequently asked questions',
     'faq.description':

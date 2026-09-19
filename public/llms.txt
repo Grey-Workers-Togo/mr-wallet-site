@@ -12,6 +12,8 @@ Mr Wallet is published by Grey Workers Togo (Zanguera, Lomé, Togo). The marketi
 ## Pages (English)
 
 - [Home (en)](https://mister-wallet.com/en): Product overview, features, pricing, FAQ
+- [Pricing (en)](https://mister-wallet.com/en/pricing): Free plan, Pro plan status
+- [About (en)](https://mister-wallet.com/en/about): Publisher, audience, principles
 - [FAQ (en)](https://mister-wallet.com/en/faq): Frequently asked questions
 - [Blog (en)](https://mister-wallet.com/en/blog): Product updates and budgeting guides
 - [Privacy policy (en)](https://mister-wallet.com/en/legal/privacy)
@@ -21,6 +23,8 @@ Mr Wallet is published by Grey Workers Togo (Zanguera, Lomé, Togo). The marketi
 ## Pages (French)
 
 - [Home (fr)](https://mister-wallet.com/fr): Product overview, features, pricing, FAQ
+- [Pricing (fr)](https://mister-wallet.com/fr/pricing): Free plan, Pro plan status
+- [About (fr)](https://mister-wallet.com/fr/about): Publisher, audience, principles
 - [FAQ (fr)](https://mister-wallet.com/fr/faq): Frequently asked questions
 - [Blog (fr)](https://mister-wallet.com/fr/blog): Product updates and budgeting guides
 - [Privacy policy (fr)](https://mister-wallet.com/fr/legal/privacy)
