@@ -1,22 +1,37 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 
+@custom-variant dark (&:is(.dark *));
+
 /*
- * Design tokens copied from apps/web/src/styles/globals.css in the
- * mr-wallet repo (docs/16-marketing-site-split.md, Phase 2). That file is
- * the source of truth — port changes here by hand, there is no shared
- * package between the two repos (ADR-0015).
+ * Copied from apps/web/src/styles/globals.css in the mr-wallet repo (primary
+ * + primary-foreground only — this site doesn't use the app's sidebar/chart
+ * tokens). Keep in sync manually if the app's brand colors change
+ * (CLAUDE.md, "design tokens" rule).
  */
-@theme {
-  --font-jakarta: 'Plus Jakarta Sans', sans-serif;
-  --color-brand: #0f766e;
-  --color-brand-dark: #000000;
+:root {
+  --primary: #0f766e;
+  --primary-foreground: #ffffff;
+  color-scheme: light;
 }
 
-:root {
-  color-scheme: light dark;
+.dark {
+  --primary: #14b8a6;
+  --primary-foreground: #0d4f47;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --font-jakarta: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 body {
   font-family: var(--font-jakarta);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }

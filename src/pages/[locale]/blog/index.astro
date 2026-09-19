@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import { locales } from '@/i18n/utils';
+import PageLayout from '@/layouts/PageLayout.astro';
+import { locales, useTranslations } from '@/i18n/utils';
 import type { Locale } from '@/i18n/ui';
 
 export function getStaticPaths() {
@@ -9,27 +9,28 @@ export function getStaticPaths() {
 }
 
 const { locale } = Astro.params as { locale: Locale };
+const t = useTranslations(locale);
 const allPosts = await getCollection('blog');
 const posts = allPosts
   .filter((post) => post.id.startsWith(`${locale}/`) && !post.data.draft)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
-<BaseLayout locale={locale} title="Blog — Mr Wallet" description="Articles Mr Wallet sur le budget et les finances personnelles." path="/blog">
-  <main class="mx-auto max-w-2xl px-6 py-16">
-    <h1 class="text-3xl font-bold">Blog</h1>
+<PageLayout locale={locale} title="Blog — Mr Wallet" description={t('seo.description')} path="/blog">
+  <main class="mx-auto max-w-2xl px-4 py-16">
+    <h1 class="text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">Blog</h1>
     <ul class="mt-8 space-y-6">
       {posts.map((post) => {
         const slug = post.id.split('/').slice(1).join('/');
         return (
           <li>
-            <a href={`/${locale}/blog/${slug}`} class="text-xl font-semibold hover:underline">
+            <a href={`/${locale}/blog/${slug}`} class="text-xl font-semibold text-neutral-900 hover:underline dark:text-neutral-50">
               {post.data.title}
             </a>
-            <p class="text-slate-600 dark:text-slate-400">{post.data.description}</p>
+            <p class="text-neutral-600 dark:text-neutral-400">{post.data.description}</p>
           </li>
         );
       })}
     </ul>
   </main>
-</BaseLayout>
+</PageLayout>

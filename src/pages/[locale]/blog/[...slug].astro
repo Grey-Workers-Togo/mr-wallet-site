@@ -1,6 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
-import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageLayout from '@/layouts/PageLayout.astro';
 import type { Locale } from '@/i18n/ui';
 
 export async function getStaticPaths() {
@@ -40,7 +40,7 @@ const jsonLd = [
 ];
 ---
 
-<BaseLayout
+<PageLayout
   locale={locale}
   title={post.data.title}
   description={post.data.description}
@@ -48,8 +48,8 @@ const jsonLd = [
   ogImage={post.data.ogImage}
   jsonLd={jsonLd}
 >
-  <article class="mx-auto max-w-2xl px-6 py-16 prose dark:prose-invert">
+  <article class="prose prose-neutral mx-auto max-w-2xl px-4 py-16 dark:prose-invert">
     <h1>{post.data.title}</h1>
     <Content />
   </article>
-</BaseLayout>
+</PageLayout>

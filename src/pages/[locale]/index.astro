@@ -1,6 +1,20 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageLayout from '@/layouts/PageLayout.astro';
+import FeatureCard from '@/components/FeatureCard.astro';
+import TimelineStep from '@/components/TimelineStep.astro';
+import TestimonialCard from '@/components/TestimonialCard.astro';
+import PricingCard from '@/components/PricingCard.astro';
+import ScreenshotsGallery from '@/components/ScreenshotsGallery.astro';
+import Icon from '@/components/Icon.astro';
 import { locales, useTranslations } from '@/i18n/utils';
+import {
+  featuresItems,
+  howItWorksSteps,
+  testimonialItems,
+  pricingPlans,
+  designedForReasons,
+  homeFaqItems,
+} from '@/i18n/content';
 import type { Locale } from '@/i18n/ui';
 
 export function getStaticPaths() {
@@ -11,6 +25,13 @@ const { locale } = Astro.params as { locale: Locale };
 const t = useTranslations(locale);
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://mister-wallet.com';
 
+const features = featuresItems[locale];
+const steps = howItWorksSteps[locale];
+const testimonials = testimonialItems[locale];
+const plans = pricingPlans[locale];
+const reasons = designedForReasons[locale];
+const faqs = homeFaqItems[locale];
+
 // Adapted from apps/web/src/app/[locale]/layout.tsx:69-101 in the mr-wallet
 // repo (docs/16-marketing-site-split.md, Phase 3).
 const jsonLd = [
@@ -18,6 +39,7 @@ const jsonLd = [
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
     name: 'Mr Wallet',
+    description: t('hero.description'),
     applicationCategory: 'FinanceApplication',
     operatingSystem: 'Web',
     url: `${siteUrl}/${locale}`,
@@ -46,41 +68,275 @@ const jsonLd = [
       },
     ],
   },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+    })),
+  },
 ];
+
+const trust = [
+  { icon: 'globe' as const, title: t('hero.trust.multiCurrencyTitle'), desc: t('hero.trust.multiCurrencyDescription') },
+  { icon: 'book' as const, title: t('hero.trust.ledgerTitle'), desc: t('hero.trust.ledgerDescription') },
+  { icon: 'smartphone' as const, title: t('hero.trust.mobileTitle'), desc: t('hero.trust.mobileDescription') },
+];
+
+const appOrigin = 'https://app.mister-wallet.com';
+const heroRows = [
+  { key: 'row1', amount: '-12 500 F', negative: true },
+  { key: 'row2', amount: '+50 000 F', negative: false },
+  { key: 'row3', amount: '-18 000 F', negative: true },
+] as const;
 ---
 
-<BaseLayout
-  locale={locale}
-  title="Mr Wallet — Budget, transactions, dettes et objectifs"
-  description="Suivi de budget, transactions, dettes et objectifs financiers, sans montant approximatif ni tableur."
-  path=""
-  jsonLd={jsonLd}
->
-  <header class="flex items-center justify-between p-6">
-    <span class="font-bold text-lg">{t('hero.title')}</span>
-    <nav class="flex gap-4">
-      <a href={`/${locale}/pricing`}>{t('nav.pricing')}</a>
-      <a href={`/${locale}/blog`}>{t('nav.blog')}</a>
-      <a href={`/${locale}/faq`}>{t('nav.faq')}</a>
-      <a href="https://app.mister-wallet.com/fr/login" class="font-semibold">{t('nav.login')}</a>
-    </nav>
-  </header>
+<PageLayout locale={locale} title={t('seo.title')} description={t('seo.description')} path="" jsonLd={jsonLd}>
+  <main class="flex flex-col bg-white text-neutral-900 dark:bg-[#0a0a0d] dark:text-neutral-100">
+    {/* Hero — self-contained answer paragraph first (AEO/GEO, docs/16 Phase 3) */}
+    <section class="relative overflow-hidden bg-white dark:bg-[#0a0a0d]">
+      <div
+        aria-hidden
+        class="pointer-events-none absolute inset-x-0 top-0 h-[420px]"
+        style="background: radial-gradient(60% 100% at 50% 0%, color-mix(in oklab, var(--color-primary) 18%, transparent), transparent 70%);"
+      />
 
-  <main class="mx-auto max-w-3xl px-6 py-24 text-center">
-    <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">{t('hero.title')}</h1>
-    <p class="mt-6 text-lg text-slate-600 dark:text-slate-400">
-      TODO — port the full landing page from apps/web/src/app/[locale]/HomeView.tsx.
-      See docs/16-marketing-site-split.md (Phase 2) in the mr-wallet repo.
-    </p>
-    <a
-      href="https://app.mister-wallet.com/fr/login"
-      class="mt-10 inline-block rounded-lg bg-[--color-brand] px-6 py-3 font-semibold text-white"
-    >
-      {t('hero.cta')}
-    </a>
+      <div class="relative mx-auto flex max-w-3xl flex-col items-center px-4 pt-20 pb-16 text-center md:pt-28 md:pb-20">
+        <span class="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-neutral-100 px-3.5 py-1.5 text-xs font-medium text-neutral-600 dark:border-white/10 dark:bg-white/5 dark:text-neutral-300">
+          <span aria-hidden class="size-1.5 rounded-full bg-primary" />
+          {t('hero.badge')}
+        </span>
+
+        <h1 class="mt-7 text-5xl leading-[1.02] font-bold tracking-[-0.02em] text-neutral-900 md:text-7xl dark:text-neutral-50">
+          {t('hero.tagline')}
+        </h1>
+
+        <p class="mt-6 max-w-xl text-lg leading-relaxed text-neutral-600 dark:text-neutral-400">
+          {t('hero.description')}
+        </p>
+
+        <div class="mt-9 flex flex-col items-center gap-4 sm:flex-row">
+          <a
+            href={`${appOrigin}/${locale}/register`}
+            class="inline-flex h-12 items-center gap-2 rounded-xl bg-neutral-900 px-6 text-[0.95rem] font-semibold text-white transition-colors hover:bg-neutral-800 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
+          >
+            {t('hero.ctaPrimary')}
+            <Icon name="arrow-right" class="size-4" />
+          </a>
+          <a
+            href="#features"
+            class="group inline-flex h-12 items-center gap-1.5 rounded-xl border border-neutral-300 px-6 text-[0.95rem] font-medium text-neutral-700 transition-colors hover:bg-neutral-100 dark:border-white/15 dark:text-neutral-200 dark:hover:bg-white/5"
+          >
+            {t('hero.ctaSecondary')}
+            <Icon name="arrow-right" class="size-4 transition-transform group-hover:translate-x-0.5" />
+          </a>
+        </div>
+
+        <ul class="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm">
+          {trust.map((item, i) => (
+            <li class="flex items-center gap-2">
+              {i > 0 && <span aria-hidden class="hidden h-3.5 w-px bg-neutral-200 sm:block dark:bg-white/10" />}
+              <Icon name={item.icon} class="size-4 text-primary" />
+              <span class="font-medium text-neutral-700 dark:text-neutral-300">{item.title}</span>
+              <span class="text-neutral-500">{item.desc}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="relative mx-auto max-w-md px-4 pb-20 md:pb-28">
+        <div class="rounded-2xl border border-neutral-200 bg-white p-5 shadow-xl md:p-6 dark:border-white/10 dark:bg-white/[0.04] dark:shadow-2xl">
+          <div class="flex items-center justify-between">
+            <span class="text-sm text-neutral-500 dark:text-neutral-400">{t('hero.mock.dailyBudget')}</span>
+            <span class="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-0.5 text-xs font-medium text-emerald-700 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-400">
+              <span aria-hidden class="size-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400" />
+              {t('hero.mock.stable')}
+            </span>
+          </div>
+          <p class="mt-1 text-3xl font-bold tracking-tight text-neutral-900 tabular-nums dark:text-neutral-50">
+            18 450 F <span class="text-base font-normal text-neutral-400 dark:text-neutral-500">{t('hero.mock.perDay')}</span>
+          </p>
+
+          <svg viewBox="0 0 300 64" class="mt-4 h-16 w-full" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="hero-spark" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="var(--color-primary)" stop-opacity="0.28" />
+                <stop offset="100%" stop-color="var(--color-primary)" stop-opacity="0" />
+              </linearGradient>
+            </defs>
+            <path d="M0,44 L40,40 L80,46 L120,30 L160,34 L200,20 L240,26 L300,10 L300,64 L0,64 Z" fill="url(#hero-spark)" />
+            <path
+              d="M0,44 L40,40 L80,46 L120,30 L160,34 L200,20 L240,26 L300,10"
+              fill="none"
+              stroke="var(--color-primary)"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+
+          <div class="mt-4 grid grid-cols-2 gap-3">
+            <div class="rounded-xl border border-neutral-200 bg-neutral-50 p-3 dark:border-white/10 dark:bg-white/[0.02]">
+              <span class="text-xs tracking-wide text-neutral-500 uppercase">{t('hero.mock.totalBalance')}</span>
+              <p class="mt-1 text-lg font-semibold text-neutral-900 tabular-nums dark:text-neutral-100">1 248 000 F</p>
+              <div class="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-neutral-100 dark:bg-white/10">
+                <div class="h-full w-[68%] rounded-full bg-primary" />
+              </div>
+            </div>
+            <div class="rounded-xl border border-neutral-200 bg-neutral-50 p-3 dark:border-white/10 dark:bg-white/[0.02]">
+              <span class="text-xs tracking-wide text-neutral-500 uppercase">{t('hero.mock.savings')}</span>
+              <p class="mt-1 text-lg font-semibold text-neutral-900 tabular-nums dark:text-neutral-100">32%</p>
+              <div class="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-neutral-100 dark:bg-white/10">
+                <div class="h-full w-[32%] rounded-full bg-emerald-500 dark:bg-emerald-400" />
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 space-y-3">
+            {heroRows.map((row) => (
+              <div class="flex items-center justify-between border-b border-neutral-200 pb-3 last:border-0 last:pb-0 dark:border-white/10">
+                <div>
+                  <p class="text-sm font-medium text-neutral-900 dark:text-neutral-200">{t(`hero.mock.${row.key}Label` as any)}</p>
+                  <p class="text-xs text-neutral-500">{t(`hero.mock.${row.key}Sub` as any)}</p>
+                </div>
+                <span class={`text-sm font-semibold tabular-nums ${row.negative ? 'text-red-600 dark:text-red-400' : 'text-emerald-600 dark:text-emerald-400'}`}>
+                  {row.amount}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Features */}
+    <section id="features" class="scroll-mt-16 bg-white px-4 py-20 md:px-12 md:py-28 dark:bg-[#0a0a0d]">
+      <div class="mx-auto max-w-3xl text-center">
+        <h2 class="text-3xl font-bold tracking-tight text-neutral-900 md:text-5xl dark:text-neutral-50">{t('features.title')}</h2>
+        <p class="mt-4 text-lg text-neutral-600 dark:text-neutral-400">{t('features.subtitle')}</p>
+      </div>
+      <div class="mx-auto mt-14 grid max-w-5xl gap-5 md:grid-cols-3">
+        {features.map((feature) => <FeatureCard icon={feature.icon} title={feature.title} description={feature.description} />)}
+      </div>
+    </section>
+
+    {/* Screenshots */}
+    <section class="border-y border-neutral-200 bg-neutral-50 px-4 py-20 md:px-12 md:py-28 dark:border-white/10 dark:bg-white/[0.02]">
+      <div class="mx-auto max-w-3xl text-center">
+        <h2 class="text-3xl font-bold tracking-tight text-neutral-900 md:text-5xl dark:text-neutral-50">{t('screenshots.title')}</h2>
+        <p class="mt-4 text-lg text-neutral-600 dark:text-neutral-400">{t('screenshots.subtitle')}</p>
+      </div>
+      <div class="mt-14">
+        <ScreenshotsGallery alt={t('screenshots.alt')} />
+      </div>
+    </section>
+
+    {/* Designed for West Africa */}
+    <section class="bg-white px-4 py-20 md:px-12 md:py-28 dark:bg-[#0a0a0d]">
+      <div class="mx-auto grid max-w-5xl gap-10 md:grid-cols-2 md:items-center">
+        <div>
+          <h2 class="text-3xl font-bold tracking-tight text-neutral-900 md:text-4xl dark:text-neutral-50">{t('designedFor.title')}</h2>
+          <p class="mt-4 text-lg leading-relaxed text-neutral-600 dark:text-neutral-400">{t('designedFor.description')}</p>
+          <a
+            href={`${appOrigin}/${locale}/register`}
+            class="mt-8 inline-flex h-12 items-center gap-2 rounded-xl bg-neutral-900 px-6 text-[0.95rem] font-semibold text-white transition-colors hover:bg-neutral-800 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
+          >
+            {t('designedFor.cta')}
+            <Icon name="arrow-right" class="size-4" />
+          </a>
+        </div>
+        <div class="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/[0.03] dark:shadow-none">
+          <h3 class="font-semibold text-neutral-900 dark:text-neutral-100">{t('designedFor.whyTitle')}</h3>
+          <ul class="mt-4 space-y-3">
+            {reasons.map((reason) => (
+              <li class="flex items-start gap-2.5 text-[0.95rem] text-neutral-700 dark:text-neutral-300">
+                <Icon name="check-circle" class="mt-0.5 size-4 shrink-0 text-primary" />
+                {reason}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    {/* How it works */}
+    <section id="how" class="scroll-mt-16 border-y border-neutral-200 bg-neutral-50 px-4 py-20 md:px-12 md:py-28 dark:border-white/10 dark:bg-white/[0.02]">
+      <h2 class="mb-14 text-center text-3xl font-bold tracking-tight text-neutral-900 md:text-5xl dark:text-neutral-50">{t('howItWorks.title')}</h2>
+      <div class="mx-auto flex max-w-4xl flex-col gap-10 md:flex-row">
+        {steps.map((step, index) => (
+          <TimelineStep step={index + 1} title={step.title} description={step.description} isLast={index === steps.length - 1} />
+        ))}
+      </div>
+    </section>
+
+    {/* Testimonials */}
+    <section class="bg-white px-4 py-20 md:px-12 md:py-28 dark:bg-[#0a0a0d]">
+      <div class="mx-auto max-w-3xl text-center">
+        <h2 class="text-3xl font-bold tracking-tight text-neutral-900 md:text-5xl dark:text-neutral-50">{t('testimonials.title')}</h2>
+        <p class="mt-4 text-lg text-neutral-600 dark:text-neutral-400">{t('testimonials.subtitle')}</p>
+      </div>
+      <div class="mx-auto mt-14 grid max-w-5xl gap-5 md:grid-cols-3">
+        {testimonials.map((testimonial) => <TestimonialCard name={testimonial.name} role={testimonial.role} quote={testimonial.quote} />)}
+      </div>
+    </section>
+
+    {/* Pricing */}
+    <section id="pricing" class="scroll-mt-16 border-y border-neutral-200 bg-neutral-50 px-4 py-20 md:px-12 md:py-28 dark:border-white/10 dark:bg-white/[0.02]">
+      <div class="mx-auto max-w-3xl text-center">
+        <h2 class="text-3xl font-bold tracking-tight text-neutral-900 md:text-5xl dark:text-neutral-50">{t('pricing.title')}</h2>
+        <p class="mt-4 text-lg text-neutral-600 dark:text-neutral-400">{t('pricing.subtitle')}</p>
+      </div>
+      <div class="mx-auto mt-14 grid max-w-3xl gap-6 md:grid-cols-2">
+        {plans.map((plan) => <PricingCard {...plan} />)}
+      </div>
+    </section>
+
+    {/* FAQ */}
+    <section id="faq" class="scroll-mt-16 bg-white px-4 py-20 md:px-12 md:py-28 dark:bg-[#0a0a0d]">
+      <h2 class="mb-12 text-center text-3xl font-bold tracking-tight text-neutral-900 md:text-5xl dark:text-neutral-50">{t('faq.title')}</h2>
+      <div class="mx-auto max-w-2xl divide-y divide-neutral-200 dark:divide-white/10">
+        {faqs.map((faq) => (
+          <details class="group px-1 py-4">
+            <summary class="cursor-pointer list-none text-base font-medium text-neutral-900 marker:content-none dark:text-neutral-100">
+              {faq.question}
+            </summary>
+            <p class="mt-2 text-[0.95rem] leading-relaxed text-neutral-600 dark:text-neutral-400">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+      <p class="mt-8 text-center text-sm text-neutral-500">
+        <a href={`/${locale}/faq`} class="underline underline-offset-4 hover:text-neutral-900 dark:hover:text-white">
+          {t('nav.faq')}
+        </a>
+      </p>
+    </section>
+
+    {/* CTA final */}
+    <section class="relative overflow-hidden bg-white px-4 py-24 text-center md:py-32 dark:bg-[#0a0a0d]">
+      <div
+        aria-hidden
+        class="pointer-events-none absolute inset-x-0 bottom-0 h-[380px]"
+        style="background: radial-gradient(60% 100% at 50% 100%, color-mix(in oklab, var(--color-primary) 16%, transparent), transparent 70%);"
+      />
+      <div class="relative mx-auto flex max-w-2xl flex-col items-center gap-6">
+        <h2 class="text-3xl font-bold tracking-tight text-neutral-900 md:text-5xl dark:text-neutral-50">{t('ctaFinal.title')}</h2>
+        <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-3">
+          <a
+            href={`${appOrigin}/${locale}/register`}
+            class="inline-flex h-12 items-center gap-2 rounded-xl bg-neutral-900 px-6 text-[0.95rem] font-semibold text-white transition-colors hover:bg-neutral-800 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
+          >
+            {t('ctaFinal.primary')}
+          </a>
+          <span class="text-neutral-600 dark:text-neutral-400">
+            {t('ctaFinal.secondaryPrefix')}{' '}
+            <a href={`${appOrigin}/${locale}/login`} class="text-neutral-900 underline-offset-4 hover:underline dark:text-neutral-100">
+              {t('ctaFinal.secondary')}
+            </a>
+          </span>
+        </div>
+      </div>
+    </section>
   </main>
-
-  <footer class="p-6 text-center text-sm text-slate-500">
-    &copy; {new Date().getFullYear()} Mr Wallet. {t('footer.rights')}
-  </footer>
-</BaseLayout>
+</PageLayout>

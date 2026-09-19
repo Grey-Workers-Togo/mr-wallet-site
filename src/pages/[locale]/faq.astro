@@ -1,7 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import { locales } from '@/i18n/utils';
+import PageLayout from '@/layouts/PageLayout.astro';
+import { locales, useTranslations } from '@/i18n/utils';
 import type { Locale } from '@/i18n/ui';
 
 export function getStaticPaths() {
@@ -9,6 +9,7 @@ export function getStaticPaths() {
 }
 
 const { locale } = Astro.params as { locale: Locale };
+const t = useTranslations(locale);
 const allEntries = await getCollection('faq');
 const entries = allEntries
   .filter((entry) => entry.id.startsWith(`${locale}/`))
@@ -27,16 +28,18 @@ const jsonLd = {
 };
 ---
 
-<BaseLayout locale={locale} title="FAQ — Mr Wallet" description="Réponses aux questions fréquentes sur Mr Wallet." path="/faq" jsonLd={jsonLd}>
-  <main class="mx-auto max-w-2xl px-6 py-16">
-    <h1 class="text-3xl font-bold">FAQ</h1>
-    <div class="mt-8 space-y-4">
+<PageLayout locale={locale} title={t('faq.title')} description={t('seo.description')} path="/faq" jsonLd={jsonLd}>
+  <main class="mx-auto max-w-2xl px-4 py-16">
+    <h1 class="text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">{t('faq.title')}</h1>
+    <div class="mt-8 divide-y divide-neutral-200 dark:divide-white/10">
       {entries.map((entry, i) => {
         const { Content } = rendered[i];
         return (
-          <details class="rounded-lg border p-4">
-            <summary class="cursor-pointer font-semibold">{entry.data.question}</summary>
-            <div class="mt-2 text-slate-600 dark:text-slate-400">
+          <details class="group py-4">
+            <summary class="cursor-pointer list-none text-base font-medium text-neutral-900 marker:content-none dark:text-neutral-100">
+              {entry.data.question}
+            </summary>
+            <div class="mt-2 text-[0.95rem] leading-relaxed text-neutral-600 dark:text-neutral-400">
               <Content />
             </div>
           </details>
@@ -44,4 +47,4 @@ const jsonLd = {
       })}
     </div>
   </main>
-</BaseLayout>
+</PageLayout>

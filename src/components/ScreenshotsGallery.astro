@@ -1,0 +1,24 @@
+---
+interface Props {
+  alt: string;
+}
+
+const { alt } = Astro.props;
+const screenshots = ['/screenshots/phone1.png', '/screenshots/phone2.png', '/screenshots/phone3.png', '/screenshots/phone4.png'];
+---
+
+<div class="mx-auto flex max-w-5xl snap-x snap-mandatory gap-6 overflow-x-auto px-4 pb-4 md:justify-center md:overflow-visible md:px-0">
+  {screenshots.map((src, index) => (
+    <div class="w-40 shrink-0 snap-center overflow-hidden rounded-[2rem] bg-neutral-50 shadow-xl ring-1 ring-neutral-200 transition-transform hover:-translate-y-1.5 md:w-48 dark:bg-white/[0.03] dark:shadow-2xl dark:ring-white/10">
+      <img
+        src={src}
+        alt={`${alt} ${index + 1}`}
+        width={1080}
+        height={1920}
+        loading="lazy"
+        decoding="async"
+        class="h-auto w-full"
+      />
+    </div>
+  ))}
+</div>

@@ -1,0 +1,43 @@
+---
+import { getCollection, render } from 'astro:content';
+import PageLayout from '@/layouts/PageLayout.astro';
+import type { Locale } from '@/i18n/ui';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('legal');
+  return entries.map((entry) => {
+    const [locale, ...rest] = entry.id.split('/');
+    return { params: { locale, slug: rest.join('/') }, props: { entry } };
+  });
+}
+
+const { locale } = Astro.params as { locale: Locale };
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const slug = entry.id.split('/').slice(1).join('/');
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Mr Wallet', item: `https://mister-wallet.com/${locale}` },
+    { '@type': 'ListItem', position: 2, name: entry.data.title, item: `https://mister-wallet.com/${locale}/legal/${slug}` },
+  ],
+};
+---
+
+<PageLayout
+  locale={locale}
+  title={`${entry.data.title} — Mr Wallet`}
+  description={entry.data.title}
+  path={`/legal/${slug}`}
+  jsonLd={jsonLd}
+>
+  <main class="prose prose-neutral mx-auto max-w-2xl px-4 py-16 dark:prose-invert">
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      {entry.data.updatedDate.toLocaleDateString(locale)}
+    </p>
+    <h1>{entry.data.title}</h1>
+    <Content />
+  </main>
+</PageLayout>

@@ -1,0 +1,21 @@
+---
+interface Props {
+  step: number;
+  title: string;
+  description: string;
+  isLast: boolean;
+}
+
+const { step, title, description, isLast } = Astro.props;
+---
+
+<div class="relative flex flex-1 flex-col items-center gap-3 text-center">
+  <div class="relative z-10 flex size-11 shrink-0 items-center justify-center rounded-full bg-primary text-base font-semibold text-primary-foreground ring-4 ring-primary/15">
+    {step}
+  </div>
+  {!isLast && (
+    <span aria-hidden class="absolute top-5 left-1/2 hidden h-px w-full bg-neutral-200 md:block dark:bg-white/10" />
+  )}
+  <h3 class="text-lg font-semibold text-neutral-900 dark:text-neutral-50">{title}</h3>
+  <p class="text-[0.95rem] leading-relaxed text-neutral-600 dark:text-neutral-400">{description}</p>
+</div>

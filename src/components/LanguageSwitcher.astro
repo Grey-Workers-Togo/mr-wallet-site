@@ -1,0 +1,31 @@
+---
+// Pure links, no JS: swap the locale segment of the current path.
+import { languages, type Locale } from '@/i18n/ui';
+import { locales } from '@/i18n/utils';
+
+interface Props {
+  locale: Locale;
+  path: string; // current path without locale prefix, e.g. "" or "/faq"
+}
+
+const { locale, path } = Astro.props;
+---
+
+<div class="flex items-center gap-1 text-sm">
+  {locales.map((l, i) => (
+    <>
+      {i > 0 && <span aria-hidden class="text-neutral-300 dark:text-white/20">/</span>}
+      <a
+        href={`/${l}${path}`}
+        class={
+          l === locale
+            ? 'rounded-md px-1.5 py-1 font-semibold text-neutral-900 dark:text-white'
+            : 'rounded-md px-1.5 py-1 text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white'
+        }
+        aria-current={l === locale ? 'true' : undefined}
+      >
+        {languages[l]}
+      </a>
+    </>
+  ))}
+</div>

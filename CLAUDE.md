@@ -95,11 +95,25 @@ scripts/check-i18n-parity.ts
 
 ## Current state
 
-Scaffold only. The home page (`src/pages/[locale]/index.astro`) is a placeholder — the real
-landing page content still needs to be ported section by section from
-`apps/web/src/app/[locale]/HomeView.tsx` in the `mr-wallet` repo (Phase 2 of
-`docs/16-marketing-site-split.md`: `FeatureCard`, `PricingCard`, `TestimonialCard`, `TimelineStep`,
-`FAQItem`, `SiteHeader` as `.astro`; `ScreenshotsGallery`/`ThemeToggle`/`LanguageSwitcher` as
-islands). One sample blog post and one sample FAQ entry exist per locale to prove the pipeline;
-`legal/` is empty (needs `privacy`, `terms`, `account-deletion` — the last one migrated from
-`apps/web/src/app/[locale]/account-deletion/page.tsx`).
+Phase 2 (landing content migration) is done. The real landing page is ported from
+`apps/web/src/app/[locale]/HomeView.tsx`: hero, features, screenshots, "designed for West Africa",
+how-it-works, testimonials, pricing, condensed FAQ, final CTA. All of it is plain `.astro` — no
+React islands were needed in the end; `ThemeToggle` and `LanguageSwitcher` are vanilla-JS/CSS
+components instead (`src/components/`), which keeps the zero-JS goal intact. Structured content
+(feature list, pricing plans, testimonials, FAQ items) lives in `src/i18n/content.ts`, hand-kept in
+sync between `fr`/`en` — the parity script only diffs `ui.ts`'s flat keys, not this file's arrays.
+
+`legal/` has real content: `privacy` and `terms` are first-draft copy (each MDX file has an
+HTML-comment note — **needs an actual legal review pass before production launch**, this was
+written by an agent, not a lawyer). `account-deletion` is fully migrated from
+`apps/web/src/app/[locale]/account-deletion/page.tsx` and kept at its original indexed URL
+(`/[locale]/account-deletion`, not under `/legal/`).
+
+Real assets are in place: `logo-symbol.svg`, `logo-full.svg`, icon/favicon set, and the four
+`screenshots/phone*.png` from `apps/web/public/`. One sample blog post and one sample FAQ entry
+still exist per locale — more content is a content task, not a code task, from here on.
+
+Not done yet: Lighthouse CI budget config referenced in `.github/workflows/ci.yml` (no
+`lighthouserc` file exists), and this repo has not been pushed to GitHub or deployed anywhere —
+both are deliberately deferred (see `docs/16-marketing-site-split.md` Phase 3 verification list
+before either happens).

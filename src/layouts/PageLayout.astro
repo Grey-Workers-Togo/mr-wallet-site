@@ -1,0 +1,26 @@
+---
+// Adds the shared SiteHeader/Footer around BaseLayout's <head>/<body> shell.
+// Split out so BaseLayout stays head-only and reusable (e.g. for a future
+// page that wants a bare shell without chrome).
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SiteHeader from '@/components/SiteHeader.astro';
+import Footer from '@/components/Footer.astro';
+import type { Locale } from '@/i18n/ui';
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description: string;
+  path: string;
+  ogImage?: string;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const { locale, title, description, path, ogImage, jsonLd } = Astro.props;
+---
+
+<BaseLayout locale={locale} title={title} description={description} path={path} ogImage={ogImage} jsonLd={jsonLd}>
+  <SiteHeader locale={locale} path={path} />
+  <slot />
+  <Footer locale={locale} />
+</BaseLayout>

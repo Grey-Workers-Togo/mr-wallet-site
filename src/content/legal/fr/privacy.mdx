@@ -1,0 +1,36 @@
+---
+title: Politique de confidentialité
+updatedDate: 2026-09-19
+---
+
+{/* Brouillon initial rédigé pour amorcer la page — à faire relire par un juriste avant tout lancement en production. Voir la note dans le message de livraison de la Phase 2. */}
+
+Mr Wallet ne vend jamais vos données et ne les partage avec aucun tiers à des fins publicitaires. Cette page explique quelles données sont collectées, pourquoi, et comment les récupérer ou les supprimer.
+
+## Données collectées
+
+- **Compte** : adresse email, mot de passe (haché avec Argon2id — jamais stocké en clair).
+- **Données financières** : comptes, transactions, budgets, catégories, tags, dettes, objectifs, récurrences que vous créez ou importez. Aucune connexion directe à votre banque : les données entrent par saisie manuelle ou import de fichier CSV/Excel.
+- **Journal d'audit** : chaque création, modification ou suppression est horodatée dans un journal technique immuable, à des fins de traçabilité et de sécurité.
+- **Notifications push** : si vous activez les notifications, l'identifiant de votre appareil est conservé pour vous les envoyer. Le contenu d'une notification ne contient jamais de montant ni de libellé de transaction.
+
+## Ce que nous ne faisons pas
+
+- Pas de vente ni de partage de données à des tiers.
+- Pas de publicité, pas de tracker publicitaire.
+- Pas de connecteur bancaire tiers en V1/V2 : rien ne sort de l'application vers un service externe sans action explicite de votre part (export).
+
+## Cookies et session
+
+- Un cookie technique `HttpOnly`, scopé à l'endpoint de rafraîchissement de session, sert uniquement à vous garder connecté. Aucun cookie de mesure d'audience ou de publicité.
+- Ce site marketing (`mister-wallet.com`) ne dépose aucun cookie et n'appelle jamais l'API de l'application.
+
+## Vos droits
+
+- **Export** : récupérez l'intégralité de vos données en CSV/Excel à tout moment, depuis l'application.
+- **Suppression** : supprimez votre compte et toutes les données associées à tout moment — voir [Supprimer mon compte](/fr/account-deletion). La suppression est immédiate depuis l'application, ou sous 30 jours par email si vous n'y avez plus accès.
+- **Contact** : pour toute question sur vos données, écrivez à [contact@mister-wallet.com](mailto:contact@mister-wallet.com).
+
+## Modifications
+
+Cette page peut évoluer avec le produit. La date de dernière mise à jour figure en haut de page.
